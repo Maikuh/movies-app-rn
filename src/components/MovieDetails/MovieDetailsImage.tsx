@@ -1,39 +1,23 @@
 import { MovieResponse, MovieResult } from "moviedb-promise/dist/request-types";
 import React from "react";
 import { StyleSheet, Image } from "react-native";
+import {
+  MovieResponseExtended,
+  MovieResultExtended,
+} from "../../typings/api.interface";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 export default function MovieDetailsImage({
   movieFromProp,
   details,
 }: {
-  movieFromProp: MovieResult;
-  details: MovieResponse;
+  movieFromProp: MovieResultExtended;
+  details: MovieResponseExtended;
 }) {
   // For some reason, TMBD's discover endpoint and details endpoint
   // return different values for poster_path and backdrop_path
   // (i.e. discover would have the path but details wouldn't
-  let propOrDetails: MovieResult | MovieResponse | undefined;
-  const imageUrl = getImageUrl();
-
-  function getImageUrl() {
-    const baseUrl = "https://image.tmdb.org/t/p/original";
-
-    if (details?.backdrop_path) {
-      propOrDetails = details;
-      return baseUrl + details.backdrop_path;
-    } else if (movieFromProp.backdrop_path) {
-      propOrDetails = movieFromProp;
-      return baseUrl + movieFromProp.backdrop_path;
-    } else if (details?.poster_path) {
-      propOrDetails = details;
-      return baseUrl + details.poster_path;
-    } else if (movieFromProp.poster_path) {
-      propOrDetails = movieFromProp;
-      return baseUrl + movieFromProp.poster_path;
-    }
-
-    return null;
-  }
+  const { imageUrl, resizeMode } = getImageUrl(details, movieFromProp)!;
 
   return (
     <Image
@@ -45,14 +29,7 @@ export default function MovieDetailsImage({
             }
           : require("../../../assets/film-placeholder.png")
       }
-      resizeMode={
-        propOrDetails &&
-        (propOrDetails.backdrop_path
-          ? "cover"
-          : propOrDetails.poster_path
-          ? "contain"
-          : "cover")
-      }
+      resizeMode={resizeMode}
     />
   );
 }

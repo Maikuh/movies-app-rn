@@ -1,12 +1,10 @@
-import { Genre } from "moviedb-promise/dist/types";
 import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
+import { MovieDetailsGenreListProps } from "../../typings/MovieDetails.interface";
 
 export default function MovieDetailsGenreList({
   genres
-}: {
-  genres: Genre[]
-}) {
+}: MovieDetailsGenreListProps) {
   if (!genres || !genres.length) {
     return <Text style={{ margin: 8 }}>No Genres</Text>;
   }

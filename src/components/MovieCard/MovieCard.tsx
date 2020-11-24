@@ -3,14 +3,15 @@ import { MovieResult } from "moviedb-promise/dist/request-types";
 import React from "react";
 import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
 import { useFavorites } from "../../contexts/favorites.context";
+import { MovieCardProps } from "../../typings/MovieCard.interface";
 import MovieCardFavoriteButton from "./MovieCardFavoriteButton";
 import MovieCardRating from "./MovieCardRating";
 import MovieCardTitle from "./MovieCardTitle";
 
-export default function MovieCard({ movie }: { movie: MovieResult }) {
+export default function MovieCard({ movie }: MovieCardProps) {
   const { favorites, toggleFavorite } = useFavorites();
   const navigation = useNavigation();
-  const isPlaceholder = (movie as any).placeholder
+  const isPlaceholder = (movie as any).placeholder;
 
   if (!movie) {
     return null;
@@ -23,15 +24,7 @@ export default function MovieCard({ movie }: { movie: MovieResult }) {
       disabled={isPlaceholder}
       activeOpacity={0.8}
     >
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          alignContent: "center",
-        }}
-      >
+      <View style={styles.contentContainer}>
         <Image
           style={styles.image}
           source={
@@ -45,14 +38,7 @@ export default function MovieCard({ movie }: { movie: MovieResult }) {
 
         <MovieCardTitle title={movie.title} />
 
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-around",
-            marginTop: "auto",
-            marginHorizontal: 8,
-          }}
-        >
+        <View style={styles.bottomContainer}>
           <MovieCardRating voteAverage={movie.vote_average} />
 
           <MovieCardFavoriteButton
@@ -70,6 +56,19 @@ export default function MovieCard({ movie }: { movie: MovieResult }) {
 }
 
 const styles = StyleSheet.create({
+  contentContainer: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    alignContent: "center",
+  },
+  bottomContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: "auto",
+    marginHorizontal: 8,
+  },
   image: {
     aspectRatio: 2 / 3,
     justifyContent: "center",

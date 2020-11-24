@@ -2,18 +2,18 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { View, FlatList } from "react-native";
 import { useFavorites } from "../contexts/favorites.context";
 import { useNavigation } from "@react-navigation/native";
-import { MovieResult } from "moviedb-promise/dist/request-types";
 import FilterModal from "../components/Header/FilterModal";
 import MoviesGrid from "../components/MoviesGrid/MoviesGrid";
 import LoadingIndicator from "../components/LoadingIndicator";
 import FilterButton from "../components/Header/FilterButton";
 import { filterFavorites } from "../utils/filterFavorites";
+import { MovieResultExtended } from "../typings/api.interface";
 
 export default function FavoritesScreen() {
   const { favorites, favoritesLoading } = useFavorites();
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("vote_average.desc");
-  const [filteredFavorites, setFilteredFavorites] = useState<MovieResult[]>(
+  const [filteredFavorites, setFilteredFavorites] = useState<MovieResultExtended[]>(
     favorites
   );
   const flatlistRef = useRef<FlatList>(null);

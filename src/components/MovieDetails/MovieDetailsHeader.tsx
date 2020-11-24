@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
+import { MovieDetailsHeaderProps } from "../../typings/MovieDetails.interface";
 
-export default function MovieDetailsHeader({ title }: { title: string }) {
+export default function MovieDetailsHeader({ title }: MovieDetailsHeaderProps) {
   return <Text style={styles.header}>{ title }</Text>;
 }
 

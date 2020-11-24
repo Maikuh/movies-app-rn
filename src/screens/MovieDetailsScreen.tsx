@@ -1,5 +1,4 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { MovieResponse, MovieResult } from "moviedb-promise/dist/request-types";
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
 import MovieDetailsImage from "../components/MovieDetails/MovieDetailsImage";
@@ -9,14 +8,15 @@ import MovieDetailsGenreList from "../components/MovieDetails/MovieDetailsGenreL
 import MovieDetailsRating from "../components/MovieDetails/MovieDetailsRating";
 import MovieDetailsReleaseDate from "../components/MovieDetails/MovieDetailsReleaseDate";
 import MovieDetailsRuntime from "../components/MovieDetails/MovieDetailsRuntime";
-import MovieDetailsIMDB from "../components/MovieDetails/MovieDetailsIMDB";
+import MovieDetailsIMDBLink from "../components/MovieDetails/MovieDetailsIMDBLink";
 import LoadingIndicator from "../components/LoadingIndicator";
 import moviesApi from "../api/movies.api";
+import { MovieResponseExtended, MovieResultExtended } from "../typings/api.interface";
 
 export default function MovieDetailsScreen() {
   const route = useRoute();
-  const { movie }: { movie: MovieResult } = route.params as any;
-  const [details, setDetails] = useState<MovieResponse>();
+  const { movie }: { movie: MovieResultExtended } = route.params as any;
+  const [details, setDetails] = useState<MovieResponseExtended>();
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
@@ -55,9 +55,9 @@ export default function MovieDetailsScreen() {
 
       <MovieDetailsHeader title="Info" />
       <MovieDetailsRating details={details} />
-      <MovieDetailsReleaseDate details={details} />
+      <MovieDetailsReleaseDate releaseDate={details.release_date} />
       <MovieDetailsRuntime runtime={details.runtime!} />
-      <MovieDetailsIMDB imdbId={details.imdb_id!} />
+      <MovieDetailsIMDBLink imdbId={details.imdb_id!} />
     </ScrollView>
   );
 }

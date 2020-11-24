@@ -1,7 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { MovieResponse } from "moviedb-promise/dist/request-types";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { useFavorites } from "../../contexts/favorites.context";
 
 export default function MovieDetailsFavoriteButton({

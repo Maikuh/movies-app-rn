@@ -1,14 +1,14 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { MovieResponse } from "moviedb-promise/dist/request-types";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { MovieDetailsReleaseDateProps } from "../../typings/MovieDetails.interface";
 
 export default function MovieDetailsReleaseDate({
-  details,
-}: {
-  details: MovieResponse;
-}) {
-  return details?.release_date ? (
+  releaseDate,
+}: MovieDetailsReleaseDateProps) {
+  if (!releaseDate) return null;
+
+  return (
     <View style={styles.container}>
       <FontAwesome
         style={styles.icon}
@@ -17,10 +17,10 @@ export default function MovieDetailsReleaseDate({
         size={24}
       />
       <Text style={styles.releaseDateText}>
-        {new Date(details.release_date).toLocaleDateString()}
+        {new Date(releaseDate).toLocaleDateString()}
       </Text>
     </View>
-  ) : null;
+  );
 }
 
 const styles = StyleSheet.create({
@@ -32,5 +32,5 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   icon: { marginRight: 6 },
-  releaseDateText: { fontSize: 20 }
+  releaseDateText: { fontSize: 20 },
 });

@@ -3,41 +3,33 @@ import React, { RefObject } from "react";
 import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import GridFooter from "./GridFooter";
 import MovieCard from "../MovieCard/MovieCard";
+import { MoviesGridProps } from "../../typings/MoviesGrid.interface";
 
 export default function MoviesGrid({
   movies,
   flatlistRef,
   onEndReached,
-  showGridFooter = false
-}: {
-  movies: MovieResult[];
-  flatlistRef: RefObject<FlatList<any>>;
-  onEndReached?: any;
-  showGridFooter?: boolean
-}) {
+  showGridFooter = false,
+}: MoviesGridProps) {
+  if (!movies.length) return <ActivityIndicator size={24} />;
+  
   return (
-    <>
-      {movies.length ? (
-        <FlatList
-          ref={flatlistRef}
-          data={movies}
-          contentContainerStyle={styles.gridContainer}
-          onEndReached={() => {
-            if (onEndReached) {
-              onEndReached();
-            }
-          }}
-          onEndReachedThreshold={0.5}
-          renderItem={({ item }) => <MovieCard movie={item} />}
-          numColumns={2}
-          centerContent={true}
-          keyExtractor={(item, index) => (item.id ?? index).toString()}
-          ListFooterComponent={showGridFooter ? GridFooter : null}
-        />
-      ) : (
-        <ActivityIndicator size={24} />
-      )}
-    </>
+    <FlatList
+      ref={flatlistRef}
+      data={movies}
+      contentContainerStyle={styles.gridContainer}
+      onEndReached={() => {
+        if (onEndReached) {
+          onEndReached();
+        }
+      }}
+      onEndReachedThreshold={0.5}
+      renderItem={({ item }) => <MovieCard movie={item} />}
+      numColumns={2}
+      centerContent={true}
+      keyExtractor={(item, index) => (item.id ?? index).toString()}
+      ListFooterComponent={showGridFooter ? GridFooter : null}
+    />
   );
 }
 

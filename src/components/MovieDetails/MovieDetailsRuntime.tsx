@@ -1,8 +1,11 @@
 import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { MovieDetailsRuntimeProps } from "../../typings/MovieDetails.interface";
 
-export default function MovieDetailsRuntime({ runtime }: { runtime: number }) {
+export default function MovieDetailsRuntime({
+  runtime,
+}: MovieDetailsRuntimeProps) {
   if (!runtime || runtime < 0) {
     return null;
   }
