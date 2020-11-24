@@ -3,9 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import FavoriteMoviesScreen from "../screens/FavoriteMoviesScreen";
+import FavoritesScreen from "../screens/FavoritesScreen";
 import MovieDetailsScreen from "../screens/MovieDetailsScreen";
-import DiscoverMoviesScreen from "../screens/DiscoverMoviesScreen";
+import DiscoverScreen from "../screens/DiscoverScreen";
 import { FavoritesProvider } from "../contexts/favorites.context";
 
 function TabBarIcon(props: { name: string; color: string }) {
@@ -45,8 +45,8 @@ function DiscoverMoviesNavigator() {
   return (
     <DiscoverMoviesStack.Navigator>
       <DiscoverMoviesStack.Screen
-        name="DiscoverMovies"
-        component={DiscoverMoviesScreen}
+        name="Discover"
+        component={DiscoverScreen}
         options={{
           headerTitle: "Discover",
           headerRightContainerStyle: { padding: 12 },
@@ -66,8 +66,8 @@ function FavoriteMoviesNavigator() {
   return (
     <FavoriteMoviesStack.Navigator>
       <FavoriteMoviesStack.Screen
-        name="FavoriteMovies"
-        component={FavoriteMoviesScreen}
+        name="Favorites"
+        component={FavoritesScreen}
         options={{ headerTitle: "Favorites" }}
       />
       <FavoriteMoviesStack.Screen
