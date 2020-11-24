@@ -2,7 +2,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import MovieDetailsScreen from "../screens/MovieDetailsScreen";
 import DiscoverScreen from "../screens/DiscoverScreen";

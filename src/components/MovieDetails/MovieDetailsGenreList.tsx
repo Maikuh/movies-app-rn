@@ -1,4 +1,3 @@
-import { MovieResponse } from "moviedb-promise/dist/request-types";
 import { Genre } from "moviedb-promise/dist/types";
 import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";

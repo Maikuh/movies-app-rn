@@ -9,10 +9,10 @@ import { MovieResult } from "moviedb-promise/dist/request-types";
 import { useNavigation } from "@react-navigation/native";
 import { useFavorites } from "../contexts/favorites.context";
 import { TMDB_API_KEY } from "@env";
-import FilterModal from "../components/FilterModal";
-import FilterButton from "../components/FilterButton";
+import FilterModal from "../components/Header/FilterModal";
+import FilterButton from "../components/Header/FilterButton";
 import LoadingIndicator from "../components/LoadingIndicator";
-import MovieGrid from "../components/MovieGrid";
+import MoviesGrid from "../components/MoviesGrid/MoviesGrid";
 
 const moviedb = new MovieDb(TMDB_API_KEY);
 
@@ -87,7 +87,7 @@ export default function DiscoverScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <View>
       <FilterModal
         selectedFilter={selectedFilter}
         onValueChange={onFilterChanged}
@@ -95,29 +95,14 @@ export default function DiscoverScreen() {
         closeModal={() => setFilterModalVisible(false)}
       />
 
-      <MovieGrid
+      <MoviesGrid
         movies={movies}
         onEndReached={nextPage}
         flatlistRef={flatlistRef}
-        showListFooter
+        showGridFooter
       />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    // alignItems: "center",
-    // flexDirection: "column",
-  },
-  gridContainer: {
-    // flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 8,
-    marginVertical: 8,
-    // flexGrow: 1,
-  },
-});
+const styles = StyleSheet.create({ });

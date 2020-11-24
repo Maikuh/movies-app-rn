@@ -43,7 +43,7 @@ export default function MovieDetailsImage({
           ? {
               uri: imageUrl,
             }
-          : require("../../assets/film-placeholder.png")
+          : require("../../../assets/film-placeholder.png")
       }
       resizeMode={
         propOrDetails &&

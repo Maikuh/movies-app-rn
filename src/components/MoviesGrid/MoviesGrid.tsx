@@ -1,19 +1,19 @@
 import { MovieResult } from "moviedb-promise/dist/request-types";
 import React, { RefObject } from "react";
-import { Text, ActivityIndicator, FlatList, StyleSheet } from "react-native";
-import ListFooter from "./ListFooter";
-import MovieCard from "./MovieCard";
+import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
+import GridFooter from "./GridFooter";
+import MovieCard from "../MovieCard/MovieCard";
 
-export default function MovieGrid({
+export default function MoviesGrid({
   movies,
   flatlistRef,
   onEndReached,
-  showListFooter = false
+  showGridFooter = false
 }: {
   movies: MovieResult[];
   flatlistRef: RefObject<FlatList<any>>;
   onEndReached?: any;
-  showListFooter?: boolean
+  showGridFooter?: boolean
 }) {
   return (
     <>
@@ -32,7 +32,7 @@ export default function MovieGrid({
           numColumns={2}
           centerContent={true}
           keyExtractor={(item, index) => (item.id ?? index).toString()}
-          ListFooterComponent={showListFooter ? ListFooter : null}
+          ListFooterComponent={showGridFooter ? GridFooter : null}
         />
       ) : (
         <ActivityIndicator size={24} />

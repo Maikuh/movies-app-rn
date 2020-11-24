@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { MovieResult } from "moviedb-promise/dist/request-types";
 import React from "react";
 import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
-import { useFavorites } from "../contexts/favorites.context";
+import { useFavorites } from "../../contexts/favorites.context";
 import MovieCardFavoriteButton from "./MovieCardFavoriteButton";
 import MovieCardRating from "./MovieCardRating";
 import MovieCardTitle from "./MovieCardTitle";

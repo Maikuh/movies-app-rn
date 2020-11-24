@@ -1,13 +1,12 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { View, FlatList } from "react-native";
 import { useFavorites } from "../contexts/favorites.context";
-import { deepCopy } from "../utils/deepCopy";
 import { useNavigation } from "@react-navigation/native";
 import { MovieResult } from "moviedb-promise/dist/request-types";
-import FilterModal from "../components/FilterModal";
-import MovieGrid from "../components/MovieGrid";
+import FilterModal from "../components/Header/FilterModal";
+import MoviesGrid from "../components/MoviesGrid/MoviesGrid";
 import LoadingIndicator from "../components/LoadingIndicator";
-import FilterButton from "../components/FilterButton";
+import FilterButton from "../components/Header/FilterButton";
 import { filterFavorites } from "../utils/filterFavorites";
 
 export default function FavoritesScreen() {
@@ -54,7 +53,7 @@ export default function FavoritesScreen() {
         closeModal={() => setFilterModalVisible(false)}
       />
 
-      <MovieGrid movies={filteredFavorites} flatlistRef={flatlistRef} />
+      <MoviesGrid movies={filteredFavorites} flatlistRef={flatlistRef} />
     </View>
   );
 }
