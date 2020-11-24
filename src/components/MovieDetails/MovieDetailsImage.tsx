@@ -1,4 +1,3 @@
-import { MovieResponse, MovieResult } from "moviedb-promise/dist/request-types";
 import React from "react";
 import { StyleSheet, Image } from "react-native";
 import {

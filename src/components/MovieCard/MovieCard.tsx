@@ -1,15 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
-import { MovieResult } from "moviedb-promise/dist/request-types";
 import React from "react";
 import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
-import { useFavorites } from "../../contexts/favorites.context";
 import { MovieCardProps } from "../../typings/MovieCard.interface";
-import MovieCardFavoriteButton from "./MovieCardFavoriteButton";
-import MovieCardRating from "./MovieCardRating";
+import MovieFavoriteButton from "../MovieFavoriteButton";
 import MovieCardTitle from "./MovieCardTitle";
+import MovieRatings from '../MovieRatings'
 
 export default function MovieCard({ movie }: MovieCardProps) {
-  const { favorites, toggleFavorite } = useFavorites();
   const navigation = useNavigation();
   const isPlaceholder = (movie as any).placeholder;
 
@@ -39,16 +36,8 @@ export default function MovieCard({ movie }: MovieCardProps) {
         <MovieCardTitle title={movie.title} />
 
         <View style={styles.bottomContainer}>
-          <MovieCardRating voteAverage={movie.vote_average} />
-
-          <MovieCardFavoriteButton
-            iconName={
-              favorites.find((f: any) => f.id === movie.id)
-                ? "heart"
-                : "heart-o"
-            }
-            onPress={() => toggleFavorite(movie)}
-          />
+          <MovieRatings voteAverage={movie.vote_average} voteCount={movie.vote_count} />
+          <MovieFavoriteButton movie={movie} />
         </View>
       </View>
     </TouchableOpacity>

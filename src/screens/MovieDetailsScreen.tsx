@@ -2,16 +2,19 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
 import MovieDetailsImage from "../components/MovieDetails/MovieDetailsImage";
-import MovieDetailsFavoriteButton from "../components/MovieDetails/MovieDetailsFavoriteButton";
 import MovieDetailsHeader from "../components/MovieDetails/MovieDetailsHeader";
 import MovieDetailsGenreList from "../components/MovieDetails/MovieDetailsGenreList";
-import MovieDetailsRating from "../components/MovieDetails/MovieDetailsRating";
 import MovieDetailsReleaseDate from "../components/MovieDetails/MovieDetailsReleaseDate";
 import MovieDetailsRuntime from "../components/MovieDetails/MovieDetailsRuntime";
 import MovieDetailsIMDBLink from "../components/MovieDetails/MovieDetailsIMDBLink";
 import LoadingIndicator from "../components/LoadingIndicator";
 import moviesApi from "../api/movies.api";
-import { MovieResponseExtended, MovieResultExtended } from "../typings/api.interface";
+import {
+  MovieResponseExtended,
+  MovieResultExtended,
+} from "../typings/api.interface";
+import MovieFavoriteButton from "../components/MovieFavoriteButton";
+import MovieRatings from "../components/MovieRatings";
 
 export default function MovieDetailsScreen() {
   const route = useRoute();
@@ -43,7 +46,11 @@ export default function MovieDetailsScreen() {
   return (
     <ScrollView>
       <MovieDetailsImage movieFromProp={movie} details={details} />
-      <MovieDetailsFavoriteButton details={details} />
+      <MovieFavoriteButton
+        movie={details ?? movie}
+        iconSize={36}
+        iconStyles={styles.favoriteButton}
+      />
 
       <MovieDetailsHeader title="Overview" />
       <Text style={styles.overviewParagraph}>
@@ -54,7 +61,13 @@ export default function MovieDetailsScreen() {
       <MovieDetailsGenreList genres={details.genres!} />
 
       <MovieDetailsHeader title="Info" />
-      <MovieDetailsRating details={details} />
+      <MovieRatings
+        voteAverage={details.vote_average}
+        voteCount={details.vote_count}
+        containerStyles={styles.ratings}
+        iconSize={24}
+        fontSize={20}
+      />
       <MovieDetailsReleaseDate releaseDate={details.release_date} />
       <MovieDetailsRuntime runtime={details.runtime!} />
       <MovieDetailsIMDBLink imdbId={details.imdb_id!} />
@@ -63,8 +76,10 @@ export default function MovieDetailsScreen() {
 }
 
 const styles = StyleSheet.create({
+  favoriteButton: { marginLeft: "auto", marginRight: 8, marginTop: -42 },
   overviewParagraph: {
     padding: 8,
     fontSize: 18,
   },
+  ratings: { marginLeft: 8, marginVertical: 8 },
 });

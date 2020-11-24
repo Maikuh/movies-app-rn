@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import { useFavorites } from "../contexts/favorites.context";
 import { useNavigation } from "@react-navigation/native";
 import FilterModal from "../components/Header/FilterModal";
@@ -13,9 +13,9 @@ export default function FavoritesScreen() {
   const { favorites, favoritesLoading } = useFavorites();
   const [filterModalVisible, setFilterModalVisible] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("vote_average.desc");
-  const [filteredFavorites, setFilteredFavorites] = useState<MovieResultExtended[]>(
-    favorites
-  );
+  const [filteredFavorites, setFilteredFavorites] = useState<
+    MovieResultExtended[]
+  >(favorites);
   const flatlistRef = useRef<FlatList>(null);
   const navigation = useNavigation();
 
@@ -28,8 +28,8 @@ export default function FavoritesScreen() {
   }
 
   useEffect(() => {
-    const result = filterFavorites(favorites, selectedFilter)
-    setFilteredFavorites(result);
+    const result = filterFavorites(favorites, selectedFilter);
+    setFilteredFavorites(result ?? []);
   }, [favorites, selectedFilter]);
 
   useLayoutEffect(() => {
@@ -42,6 +42,10 @@ export default function FavoritesScreen() {
 
   if (favoritesLoading) {
     return <LoadingIndicator />;
+  }
+
+  if (!filteredFavorites || !filteredFavorites.length) {
+    <Text>You have no favorites {":("}. Add some from the Discover tab!</Text>;
   }
 
   return (

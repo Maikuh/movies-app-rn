@@ -1,5 +1,4 @@
-import { MovieResult } from "moviedb-promise/dist/request-types";
-import React, { RefObject } from "react";
+import React from "react";
 import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import GridFooter from "./GridFooter";
 import MovieCard from "../MovieCard/MovieCard";
