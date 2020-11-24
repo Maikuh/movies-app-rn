@@ -39,7 +39,7 @@ export default function MovieCard({ movie }: { movie: MovieResult }) {
               ? {
                   uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
                 }
-              : require("../../assets/film-placeholder.png")
+              : require("../../../assets/film-placeholder.png")
           }
         />
 

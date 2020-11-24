@@ -1,9 +1,7 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { MovieDb } from "moviedb-promise";
 import { MovieResponse, MovieResult } from "moviedb-promise/dist/request-types";
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
-import { TMDB_API_KEY } from "@env";
 import MovieDetailsImage from "../components/MovieDetails/MovieDetailsImage";
 import MovieDetailsFavoriteButton from "../components/MovieDetails/MovieDetailsFavoriteButton";
 import MovieDetailsHeader from "../components/MovieDetails/MovieDetailsHeader";
@@ -13,8 +11,7 @@ import MovieDetailsReleaseDate from "../components/MovieDetails/MovieDetailsRele
 import MovieDetailsRuntime from "../components/MovieDetails/MovieDetailsRuntime";
 import MovieDetailsIMDB from "../components/MovieDetails/MovieDetailsIMDB";
 import LoadingIndicator from "../components/LoadingIndicator";
-
-const moviedb = new MovieDb(TMDB_API_KEY);
+import moviesApi from "../api/movies.api";
 
 export default function MovieDetailsScreen() {
   const route = useRoute();
@@ -25,7 +22,7 @@ export default function MovieDetailsScreen() {
 
   async function fetchMovieDetails() {
     setLoading(true);
-    const result = await moviedb.movieInfo(movie.id!);
+    const { result } = await moviesApi.getMovieDetails(movie.id!);
     setDetails(result);
     navigation.setOptions({ title: result?.title });
     setLoading(false);

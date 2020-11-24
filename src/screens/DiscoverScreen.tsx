@@ -4,17 +4,14 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { MovieDb } from "moviedb-promise";
 import { MovieResult } from "moviedb-promise/dist/request-types";
 import { useNavigation } from "@react-navigation/native";
 import { useFavorites } from "../contexts/favorites.context";
-import { TMDB_API_KEY } from "@env";
 import FilterModal from "../components/Header/FilterModal";
 import FilterButton from "../components/Header/FilterButton";
 import LoadingIndicator from "../components/LoadingIndicator";
 import MoviesGrid from "../components/MoviesGrid/MoviesGrid";
-
-const moviedb = new MovieDb(TMDB_API_KEY);
+import moviesApi from "../api/movies.api";
 
 export default function DiscoverScreen() {
   const [movies, setMovies] = useState<MovieResult[]>([]);
@@ -28,10 +25,7 @@ export default function DiscoverScreen() {
   const navigation = useNavigation();
 
   async function fetchMoreMovies(page: number) {
-    const { results, total_pages } = await moviedb.discoverMovie({
-      page,
-      sort_by: selectedFilter as any,
-    });
+    const { results, total_pages } = await moviesApi.fetchMoreMovies(page, selectedFilter)
 
     if (results?.length) {
       const newArray = [...movies, ...results];
@@ -47,10 +41,7 @@ export default function DiscoverScreen() {
 
   async function getMoviesWithFilter(sortBy: string) {
     setLoading(true);
-    const { results } = await moviedb.discoverMovie({
-      page,
-      sort_by: sortBy as any,
-    });
+    const { results } = await moviesApi.getMoviesWithFilter(sortBy)
 
     if (results?.length) {
       setMovies(results);
